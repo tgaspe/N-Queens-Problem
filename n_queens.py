@@ -4,10 +4,10 @@
 #  **** N-QUEENS PROBLEM ****
 #
 
-def distributeQueens(board, n, row=1):
+def distributeQueens(board, n, row = 1):
     '''
     (list, int, int) -> str
-    This function places as many Queens as possible in a chess board of n x n size. 
+    This function places as many Queens(Q) as possible in a chess board of n x n size. 
     It respect all possible Queen movements constrains not allowing to place a Queen on the same collum, row or both diagonals.
     It uses recursion to explore the state tree, and prints the final chess board as the result. 
     "board" is an 1D list, "row" is an int representing the current row in the recursion,
@@ -34,14 +34,14 @@ def distributeQueens(board, n, row=1):
 
 
 def deepcopy(board):
-    '''Helper function makes deep copy of list'''
+    '''Helper function: makes deep copy of list'''
     copy = []
     for i in board:
         copy.append(i)
     return copy
 
 def printBoard(board):
-    '''Helper function prints 2d board'''
+    '''Helper function: prints 2d board'''
     board_2d = []
     for j in range(len(board)): # loop through rows
         row = []
@@ -59,7 +59,7 @@ def printBoard(board):
 def main():
     '''Main'''
     board = [" "]       # Board is 1D list where the index represents the row and the board[i] the collum where the Queen resides 
-    n = 4               # Length of board. Eg: 
+    n = 4               # Length of board. Eg. n = 4
     distributeQueens(board, n)
 
 if __name__ == "__main__":
