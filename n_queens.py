@@ -4,6 +4,122 @@
 #  **** N-QUEENS PROBLEM ****
 #
 
+
+from random import randint
+
+def deepcopy(board):
+    '''Helper function: makes deep copy of list'''
+    copy = []
+    for i in board:
+        copy.append(i)
+    return copy
+
+def checkAttacks(board):
+    '''
+    (list) -> int
+    Helper function: Counts number of attacks between Queens
+    '''
+    n = len(board)
+    attacks = 0
+    conflicts = []
+
+
+    i = 1
+    while i < n:
+        #print(str(i) + " ------")
+        j = i + 1
+        while j < n:
+            #print("j " + str(j) + " => board[i] " + str(board[i]) + " board[j] " + str(board[j]))
+            pair = (i, j)
+            
+            if   board[i] == board[j]:         # there is a Q already at the same collum on row level i
+                conflicts.append(pair)
+                attacks += 1   
+            elif board[i] == board[j] + j - i: # there is a Q already at the right ( / ) diagonal on row level i
+                conflicts.append(pair)
+                attacks += 1       
+            elif board[i] == board[j] - j + i: # there is a Q already at the left  ( \ ) diagonal on row level i
+                conflicts.append(pair)
+                attacks += 1      
+            j += 1
+        i += 1
+    #print("attacks: " + str(attacks))
+    #print(conflicts)
+    return conflicts
+
+def createRandomBoard(n):
+    board = ["#"]   # Initializing Board
+    for i in range(1, n + 1):   # Creating broken state solution
+        board.append(randint(1, n))
+    return board
+    
+
+def localSearchQueens(n):
+    '''Definition'''
+
+    board = createRandomBoard(n)
+    
+    attacks = 1         # Heuristic function initialization  
+    while attacks != 0: # while there is attacks btw queens
+
+        neighbor = deepcopy(board)      # Initializing neighbor state board
+        pairsQueen = checkAttacks(board)# Gets list of pairs of conflicting Queens
+        attacks = len(pairsQueen)       # Get n# of attacks by queens
+        
+        pair = randint(0, attacks - 1)  # Selectin random conflicting pair of queens
+        queen = pairsQueen[pair][randint(0,1)]     # Selecting random Queen from the conflicting pair
+        new_col = randint(1, n)         # Getting a random new collum value for the Queen
+        
+
+        #q1 = pairsQueen[pair][0]
+        #q2 = pairsQueen[pair][1]
+
+        #if board[q1] == board[q2]:
+        #    for col in range(1, n + 1): # checks for every collum
+        #        if col not in board:    # if there is a collum in the board without a queen
+        #            neighbor[q1] = col
+
+
+        print("\np attacks: " + str(attacks))
+        print("pair: " + str(pair))
+        print("List conflicts " + str(pairsQueen))
+        print(board)
+        print("queen: " + str(queen))
+        print("new-col: " + str(new_col))
+
+        if new_col != board[queen]:     # if new col value different form the current col value
+            neighbor[queen] = new_col   # moving conflicting queen to new collum
+            attacks1 = len(checkAttacks(neighbor)) # Calculating number of attacks for neighbor state
+
+            print("neighbor: " + str(neighbor))
+            print("n_attacks: " + str(attacks1))
+
+        else:                           # if new collum is the same as the current collum, continue
+            continue
+        
+        
+        
+        if attacks1 < attacks: # if neighbor state has less queens attacking eachother
+            board = neighbor
+        else: continue
+
+
+
+
+    return board
+    
+
+
+
+print("result: " + str(localSearchQueens(8)))
+
+
+
+
+#checkAttacks(["#", 1,2,3, 4])
+
+
+# Constructive Approach: Backtracking Search
 def distributeQueens(board, n, row = 1):
     '''
     (list, int, int) -> str
@@ -33,12 +149,7 @@ def distributeQueens(board, n, row = 1):
                 distributeQueens(board1, n, row + 1)
 
 
-def deepcopy(board):
-    '''Helper function: makes deep copy of list'''
-    copy = []
-    for i in board:
-        copy.append(i)
-    return copy
+
 
 def printBoard(board):
     '''Helper function: prints 2d board'''
@@ -62,6 +173,6 @@ def main():
     n = 4               # Length of board. Eg. n = 4
     distributeQueens(board, n)
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+    #main()
     
