@@ -68,21 +68,21 @@ def localSearchQueens(n):
         pair = randint(0, attacks - 1)  # Selectin random conflicting pair of queens
         queen = pairsQueen[pair][randint(0,1)]     # Selecting random Queen from the conflicting pair
         
-        print("\nBoard " + str(board))
-        print("p attacks: " + str(attacks))
-        print("List conflicts " + str(pairsQueen))
-        print("pair: " + str(pair))
-        print("queen: " + str(queen))
+        #print("\nBoard " + str(board))
+        #print("p attacks: " + str(attacks))
+        #print("List conflicts " + str(pairsQueen))
+        #print("pair: " + str(pair))
+        #print("queen: " + str(queen))
 
         
         new_col = randint(1, n)
 
         if new_col != board[queen]:     # if new col value different form the current col value
-            print("new-col: " + str(new_col))
+            #print("new-col: " + str(new_col))
             neighbor[queen] = new_col   # moving conflicting queen to new collum
             attacks1 = len(checkAttacks(neighbor)) # Calculating number of attacks for neighbor state
-            print("attacks1 " + str(attacks1))
-            print("neighbor: " + str(neighbor))
+            #print("attacks1 " + str(attacks1))
+            #print("neighbor: " + str(neighbor))
 
         else: continue
         
@@ -93,11 +93,11 @@ def localSearchQueens(n):
         else: continue
 
 
-    return board
+    return board[1:]
 
 
 
-print("result: " + str(localSearchQueens(8)))
+#print("\nResult: " + str(localSearchQueens(8)))
 
 
 
@@ -155,10 +155,12 @@ def printBoard(board):
 
 def main():
     '''Main'''
-    board = [" "]       # Board is 1D list where the index represents the row and the board[i] the collum where the Queen resides 
-    n = 4               # Length of board. Eg. n = 4
-    distributeQueens(board, n)
+    #board = [" "]       # Board is 1D list where the index represents the row and the board[i] the collum where the Queen resides 
+    n = 8               # Length of board. Eg. n = 4
+    #distributeQueens(board, n)
+    printBoard(localSearchQueens(n))
+    
 
-#if __name__ == "__main__":
-    #main()
+if __name__ == "__main__":
+    main()
     
