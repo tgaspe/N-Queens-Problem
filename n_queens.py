@@ -4,7 +4,6 @@
 #  **** N-QUEENS PROBLEM ****
 #
 
-
 from random import randint
 
 def deepcopy(board):
@@ -68,46 +67,33 @@ def localSearchQueens(n):
         
         pair = randint(0, attacks - 1)  # Selectin random conflicting pair of queens
         queen = pairsQueen[pair][randint(0,1)]     # Selecting random Queen from the conflicting pair
-        new_col = randint(1, n)         # Getting a random new collum value for the Queen
         
-
-        #q1 = pairsQueen[pair][0]
-        #q2 = pairsQueen[pair][1]
-
-        #if board[q1] == board[q2]:
-        #    for col in range(1, n + 1): # checks for every collum
-        #        if col not in board:    # if there is a collum in the board without a queen
-        #            neighbor[q1] = col
-
-
-        print("\np attacks: " + str(attacks))
-        print("pair: " + str(pair))
+        print("\nBoard " + str(board))
+        print("p attacks: " + str(attacks))
         print("List conflicts " + str(pairsQueen))
-        print(board)
+        print("pair: " + str(pair))
         print("queen: " + str(queen))
-        print("new-col: " + str(new_col))
+
+        
+        new_col = randint(1, n)
 
         if new_col != board[queen]:     # if new col value different form the current col value
+            print("new-col: " + str(new_col))
             neighbor[queen] = new_col   # moving conflicting queen to new collum
             attacks1 = len(checkAttacks(neighbor)) # Calculating number of attacks for neighbor state
-
+            print("attacks1 " + str(attacks1))
             print("neighbor: " + str(neighbor))
-            print("n_attacks: " + str(attacks1))
 
-        else:                           # if new collum is the same as the current collum, continue
-            continue
+        else: continue
         
         
-        
-        if attacks1 < attacks: # if neighbor state has less queens attacking eachother
+        if attacks1 <= attacks: # if neighbor state has less or equal queens attacking eachother
             board = neighbor
+            attacks = attacks1
         else: continue
 
 
-
-
     return board
-    
 
 
 
