@@ -104,7 +104,7 @@ def localSearchQueens(n):
 def main():
     '''Main'''
     # Length of board. Eg. n = 4
-    n = 1000 
+    n = 300 
     
     # Backtracking approach
     #board = [" "]             # Board is 1D list   
